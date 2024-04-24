@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Festival } from './models/festival.model';
 
 @Component({
   selector: 'app-root',
@@ -8,20 +9,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Festivals';
 
-  festival: string = "";
+  selected: Festival | undefined;
 
-  selected: string = "";
-
-  festivals: string[] = [ "Paaspop", "Pinkpop", "Lowlands" ];
-
-  onSelect(festival: string) {
-    this.selected = festival == this.selected ? "" : festival;
-  }
-
-  onAppend() {
-    const index = this.festivals.indexOf(this.festival);
-    if (index < 0) {
-      this.festivals.push(this.festival);
-    }
+  onSelect(festival: any) {
+    this.selected = festival;
   }
 }
