@@ -16,7 +16,7 @@ export class FestivalListComponent {
 
   festivals: Festival[] = [];
 
-  constructor(public service: FestivalService) {
+  constructor(service: FestivalService) {
     service.getFestivals().subscribe(festivals => {
       this.festivals = festivals;
     })
