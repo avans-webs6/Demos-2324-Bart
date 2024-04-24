@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Festival } from '../models/festival.model';
 
+import { FestivalService } from '../festival.service';
+
 @Component({
   selector: 'app-festival-list',
   templateUrl: './festival-list.component.html',
@@ -12,10 +14,13 @@ export class FestivalListComponent {
 
   selected: Festival | undefined;
 
-  festivals: Festival[] = [
-    new Festival("Paaspop", "Maart", "Schijndel"),
-    new Festival("Pinkpop", "Juni", "Landgraaf"),
-    new Festival("Appelpop", "September", "Tiel")];
+  festivals: Festival[] = [];
+
+  constructor(public service: FestivalService) {
+    service.getFestivals().subscribe(festivals => {
+      this.festivals = festivals;
+    })
+  }
 
   onClick(festival: Festival) {
     this.selected = festival == this.selected ? undefined : festival;
