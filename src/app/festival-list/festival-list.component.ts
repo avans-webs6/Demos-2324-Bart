@@ -16,7 +16,7 @@ export class FestivalListComponent {
 
   festivals: Festival[] = [];
 
-  constructor(service: FestivalService) {
+  constructor(private service: FestivalService) {
     service.getFestivals().subscribe(festivals => {
       this.festivals = festivals;
     })
@@ -25,5 +25,9 @@ export class FestivalListComponent {
   onClick(festival: Festival) {
     this.selected_id = festival.id == this.selected_id ? "" : festival.id;
     this.onSelect.emit(this.selected_id);
+  }
+
+  onDelete(festival: Festival) {
+    this.service.deleteFestival(festival);
   }
 }

@@ -11,6 +11,13 @@ li {
     padding: 10px;
 }
 
+li div {
+    display: flex;
+
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .selected {
     color: white;
     background: blue;

@@ -15,7 +15,9 @@ export class FestivalCreateComponent {
   }
 
   onAdd() {
-    this.service.addFestival(this.festival);
-    this.festival = new Festival("", "", "", "");
+    if (this.festival.name != "") {
+      this.service.addFestival(this.festival);
+      this.festival = new Festival("", "", "", "");
+    }
   }
 }

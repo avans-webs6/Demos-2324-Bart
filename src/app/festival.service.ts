@@ -3,7 +3,7 @@ import { Festival } from './models/festival.model';
 import { Observable, Subscriber } from 'rxjs';
 
 import { initializeApp } from "firebase/app";
-import { Firestore, getFirestore, onSnapshot, collection, doc, addDoc } from "firebase/firestore";
+import { Firestore, getFirestore, onSnapshot, collection, doc, addDoc, deleteDoc } from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +65,10 @@ export class FestivalService {
 
   addFestival(festival: Festival) {
     addDoc(collection(this.firestore, 'festivals'), Object.assign({}, festival));
+  }
+
+  deleteFestival(festival: Festival) {
+    deleteDoc(doc(this.firestore, "festivals", festival.id));
   }
 }
 
