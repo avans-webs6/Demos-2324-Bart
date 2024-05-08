@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { FestivalListComponent } from './festival-list/festival-list.component';
 import { FestivalDetailsComponent } from './festival-details/festival-details.component';
+import { FestivalCreateComponent } from './festival-create/festival-create.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FestivalListComponent,
-    FestivalDetailsComponent
+    FestivalDetailsComponent,
+    FestivalCreateComponent
   ],
   imports: [
     BrowserModule,

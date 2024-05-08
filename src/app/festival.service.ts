@@ -3,7 +3,7 @@ import { Festival } from './models/festival.model';
 import { Observable, Subscriber } from 'rxjs';
 
 import { initializeApp } from "firebase/app";
-import { Firestore, getFirestore, onSnapshot, collection, doc } from "firebase/firestore";
+import { Firestore, getFirestore, onSnapshot, collection, doc, addDoc } from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -53,13 +53,18 @@ export class FestivalService {
         subscriber.next(null);
       } else {
         onSnapshot(doc(this.firestore, "festivals", id), (doc) => {
-          let festival = doc.data() ?? {};
-          festival['id'] = doc.id;
-
+          let festival = doc.data() ?? null;
+          if (festival) {
+            festival['id'] = doc.id;
+          }
           subscriber.next(festival);
         });
       }
     })
+  }
+
+  addFestival(festival: Festival) {
+    addDoc(collection(this.firestore, 'festivals'), Object.assign({}, festival));
   }
 }
 
