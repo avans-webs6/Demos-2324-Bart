@@ -64,7 +64,8 @@ export class FestivalService {
   }
 
   addFestival(festival: Festival) {
-    addDoc(collection(this.firestore, 'festivals'), Object.assign({}, festival));
+    const { id, ...object } = Object.assign({}, festival);
+    addDoc(collection(this.firestore, 'festivals'), object);
   }
 
   deleteFestival(festival: Festival) {
