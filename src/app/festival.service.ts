@@ -1,21 +1,50 @@
 import { Injectable } from '@angular/core';
 import { Festival } from './models/festival.model';
-import { Observable, of } from 'rxjs';
+import { Observable, Subscriber, of } from 'rxjs';
+
+import { FirebaseApp, initializeApp } from "firebase/app";
+import { Firestore, getFirestore, onSnapshot, collection, addDoc, deleteDoc, doc, getDoc, updateDoc, DocumentReference, Unsubscribe } from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FestivalService {
 
-  festivals: Festival[] = [];
+  firestore: Firestore;
 
   constructor() {
-    this.festivals.push(new Festival("Paaspop", "Maart", "Schijndel"));
-    this.festivals.push(new Festival("Pinkpop", "Juni", "Landgraaf"));
-    this.festivals.push(new Festival("Appelpop", "September", "Tiel"));
+    // Import the functions you need from the SDKs you need
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBN0_8qekmPsRsFu25KZXcohTrSAMlFoLc",
+      authDomain: "adweb-demos-2324.firebaseapp.com",
+      projectId: "adweb-demos-2324",
+      storageBucket: "adweb-demos-2324.appspot.com",
+      messagingSenderId: "422174854700",
+      appId: "1:422174854700:web:ce7a6aaa8cbeffa1ea8b89"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    this.firestore = getFirestore(app);
   }
 
   getFestivals(): Observable<Festival[]> {
-    return of(this.festivals);
+    return new Observable((subscriber: Subscriber<any[]>) => {
+      onSnapshot(collection(this.firestore, 'festivals'), (snapshot) => {
+        let festivals: any[] = [];
+        snapshot.forEach((doc) => {
+          let festival = doc.data();
+          festival['id'] = doc.id;
+          festivals.push(festival);
+        });
+        subscriber.next(festivals);
+      });
+    });
   }
 }
+
