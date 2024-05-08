@@ -3,6 +3,12 @@ ul {
     padding: 0;
     list-style: none;
     user-select: none;
+
+    border: 1px solid black;
+}
+
+li {
+    padding: 10px;
 }
 
 .selected {
