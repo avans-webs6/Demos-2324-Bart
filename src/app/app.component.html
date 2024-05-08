@@ -9,7 +9,7 @@
   <h1>{{ title }}</h1>
   <div>
     <app-festival-list (onSelect)="onSelect($event)"></app-festival-list>
-    <app-festival-details [festival]="selected"></app-festival-details>
+    <app-festival-details [selected_id]="selected_id"></app-festival-details>
   </div>
 </body>
 </html>

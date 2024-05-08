@@ -9,9 +9,9 @@ import { Festival } from './models/festival.model';
 export class AppComponent {
   title = 'Festivals';
 
-  selected: Festival | undefined;
+  selected_id: string = "";
 
-  onSelect(festival: any) {
-    this.selected = festival;
+  onSelect(selected_id: string) {
+    this.selected_id = selected_id;
   }
 }

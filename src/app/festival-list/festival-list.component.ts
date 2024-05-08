@@ -12,7 +12,7 @@ export class FestivalListComponent {
   @Output()
   onSelect = new EventEmitter();
 
-  selected: Festival | undefined;
+  selected_id: string = "";
 
   festivals: Festival[] = [];
 
@@ -23,7 +23,7 @@ export class FestivalListComponent {
   }
 
   onClick(festival: Festival) {
-    this.selected = festival == this.selected ? undefined : festival;
-    this.onSelect.emit(this.selected);
+    this.selected_id = festival.id == this.selected_id ? "" : festival.id;
+    this.onSelect.emit(this.selected_id);
   }
 }

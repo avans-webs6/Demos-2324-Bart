@@ -1,4 +1,4 @@
 <ul>
     <li *ngFor="let festival of festivals" (click)="onClick(festival)"
-        [class]="festival == selected ? 'selected' : null">{{ festival.name }}</li>
+        [class]="festival.id == selected_id ? 'selected' : null">{{ festival.name }}</li>
 </ul>

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Festival } from './models/festival.model';
-import { Observable, Subscriber, of } from 'rxjs';
+import { Observable, Subscriber } from 'rxjs';
 
-import { FirebaseApp, initializeApp } from "firebase/app";
-import { Firestore, getFirestore, onSnapshot, collection, addDoc, deleteDoc, doc, getDoc, updateDoc, DocumentReference, Unsubscribe } from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import { Firestore, getFirestore, onSnapshot, collection, doc } from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +45,21 @@ export class FestivalService {
         subscriber.next(festivals);
       });
     });
+  }
+
+  getFestival(id: string): Observable<Festival | undefined> {
+    return new Observable((subscriber: Subscriber<any>) => {
+      if (id == "") {
+        subscriber.next(null);
+      } else {
+        onSnapshot(doc(this.firestore, "festivals", id), (doc) => {
+          let festival = doc.data() ?? {};
+          festival['id'] = doc.id;
+
+          subscriber.next(festival);
+        });
+      }
+    })
   }
 }
 
