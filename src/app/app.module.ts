@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FestivalListComponent } from './festival-list/festival-list.component';
 import { FestivalDetailsComponent } from './festival-details/festival-details.component';
 import { FestivalCreateComponent } from './festival-create/festival-create.component';
@@ -18,7 +18,8 @@ import { FestivalCreateComponent } from './festival-create/festival-create.compo
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
