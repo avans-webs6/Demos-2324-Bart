@@ -7,13 +7,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FestivalListComponent } from './festival-list/festival-list.component';
 import { FestivalDetailsComponent } from './festival-details/festival-details.component';
 import { FestivalCreateComponent } from './festival-create/festival-create.component';
+import { FestivalSearchPipe } from './festival-search.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     FestivalListComponent,
     FestivalDetailsComponent,
-    FestivalCreateComponent
+    FestivalCreateComponent,
+    FestivalSearchPipe
   ],
   imports: [
     BrowserModule,

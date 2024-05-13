@@ -9,6 +9,8 @@ import { FestivalService } from '../festival.service';
   styleUrl: './festival-list.component.css'
 })
 export class FestivalListComponent {
+  query: string = "";
+  
   festivals: Festival[] = [];
 
   constructor(private service: FestivalService) {
