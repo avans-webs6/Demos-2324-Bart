@@ -1,6 +1,8 @@
 <ul>
-    <li *ngFor="let festival of festivals" (click)="onClick(festival)"
-        [class]="festival.id == selected_id ? 'selected' : null">
-        <div>{{ festival.name }}<button (click)="onDelete(festival)">-</button></div>
+    <li *ngFor="let festival of festivals">
+        <div>
+            <a routerLink="../festival/{{festival.id}}">{{festival.name}}</a>
+            <button (click)="onDelete(festival)">-</button>
+        </div>
     </li>
 </ul>

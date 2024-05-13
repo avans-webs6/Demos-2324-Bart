@@ -8,10 +8,4 @@ import { Festival } from './models/festival.model';
 })
 export class AppComponent {
   title = 'Festivals';
-
-  selected_id: string = "";
-
-  onSelect(selected_id: string) {
-    this.selected_id = selected_id;
-  }
 }

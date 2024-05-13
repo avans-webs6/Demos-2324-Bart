@@ -6,11 +6,3 @@ div {
     display: flex;
     flex-direction: row;
 }
-
-app-festival-list {
-    width: 50%;
-}
-
-app-festival-details {
-    width: 50%;
-}

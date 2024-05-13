@@ -8,15 +8,12 @@
 </head>
 
 <body>
-  <h1>{{ title }}</h1>
+  <h1>{{title}}</h1>
   <div>
     <app-festival-create></app-festival-create>
   </div>
   <br>
-  <div>
-    <app-festival-list (onSelect)="onSelect($event)"></app-festival-list>
-    <app-festival-details [selected_id]="selected_id"></app-festival-details>
-  </div>
+  <router-outlet></router-outlet>
 </body>
 
 </html>

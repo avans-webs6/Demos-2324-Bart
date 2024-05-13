@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Festival } from '../models/festival.model';
 
 import { FestivalService } from '../festival.service';
+import { ActivatedRoute } from '@angular/router';
+
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -10,17 +12,15 @@ import { Subscription } from 'rxjs';
   styleUrl: './festival-details.component.css'
 })
 export class FestivalDetailsComponent {
-  @Input()
   selected_id: string = "";
 
   festival: Festival | undefined;
 
   subscription: Subscription | undefined;
 
-  constructor(private service: FestivalService) {
-  }
-
-  ngOnChanges() {
+  constructor(private service: FestivalService, private route: ActivatedRoute) {
+    this.selected_id = this.route.snapshot.paramMap.get('id') ?? "";
+  
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
