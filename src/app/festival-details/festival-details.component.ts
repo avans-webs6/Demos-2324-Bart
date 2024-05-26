@@ -5,7 +5,6 @@ import { FestivalService } from '../festival.service';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
-import { UntypedFormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-festival-details',
@@ -17,9 +16,11 @@ export class FestivalDetailsComponent {
 
   subscription: Subscription | undefined;
 
-  eventForm: any;
+  festival: Festival | undefined;
+  organiser: string = "";
+  participants: string = "";
 
-  constructor(private service: FestivalService, private route: ActivatedRoute, private formBuilder: UntypedFormBuilder) {
+  constructor(private service: FestivalService, private route: ActivatedRoute) {
     this.selected_id = this.route.snapshot.paramMap.get('id') ?? "";
 
     if (this.subscription) {
@@ -27,12 +28,16 @@ export class FestivalDetailsComponent {
     }
 
     this.subscription = this.service.getFestival(this.selected_id).subscribe((festival: any) => {
-      if (festival) {
-        this.eventForm = this.formBuilder.group(festival);
+      this.festival = festival;
 
-        this.eventForm.valueChanges.subscribe(() => {
-          this.service.updateEvent(this.eventForm.value)
-        });
+      if (festival) {
+        this.service.getFestivalOrganiser(this.selected_id).subscribe((organiser) => {
+          this.organiser = organiser;
+        })
+
+        this.service.getFestivalParticipants(this.selected_id).subscribe((participants) => {
+          this.participants = participants.join(', ');
+        })
       }
     });
   }

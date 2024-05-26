@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Festival } from './models/festival.model';
-import { Observable, Subscriber } from 'rxjs';
+import { Observable, Subscriber, combineLatest, mergeMap, of } from 'rxjs';
 
 import { initializeApp } from "firebase/app";
 import { Firestore, getFirestore, onSnapshot, collection, doc, addDoc, deleteDoc, updateDoc } from "firebase/firestore";
@@ -66,6 +66,56 @@ export class FestivalService {
         });
       }
     })
+  }
+
+  getOrganiser(id: string): Observable<string> {
+    return new Observable((subscriber: Subscriber<any>) => {
+      if (id == "") {
+        subscriber.next("");
+      } else {
+        onSnapshot(doc(this.firestore, "organisers", id), (doc) => {
+          let organiser = doc.data() ?? null;
+          if (organiser) {
+            subscriber.next(organiser['name']);
+          }
+        });
+      }
+    })
+  }
+
+  getParticipant(id: string): Observable<string> {
+    return new Observable((subscriber: Subscriber<any>) => {
+      if (id == "") {
+        subscriber.next("");
+      } else {
+        onSnapshot(doc(this.firestore, "participants", id), (doc) => {
+          let organiser = doc.data() ?? null;
+          if (organiser) {
+            subscriber.next(organiser['name']);
+          }
+        });
+      }
+    })
+  }
+
+  getFestivalOrganiser(id: string): Observable<any> {
+    return this.getFestival(id).pipe(mergeMap((festival: any) => {
+      return this.getOrganiser(festival.organiser);
+    }));
+  }
+
+  getFestivalParticipants(id: string): Observable<string[]> {
+    return this.getFestival(id).pipe(mergeMap((festival: any) => {
+      let participants: Observable<string>[] = [];
+
+      if (festival.participants) {
+        festival.participants.forEach((id: string) => {
+          participants.push(this.getParticipant(id));
+        });
+      }
+
+      return combineLatest(participants);
+    }));
   }
 
   addFestival(festival: Festival) {
