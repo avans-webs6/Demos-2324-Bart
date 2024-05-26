@@ -14,17 +14,15 @@ import { Observable } from 'rxjs';
 export class FestivalDetailsComponent {
   selected_id: string = "";
 
-  festival: Observable<Festival | undefined>;
-  organiser: Observable<string>;
-  participants: Observable<string[]>;
+  festival$: Observable<Festival | undefined>;
+  organiser$: Observable<string>;
+  participants$: Observable<string[]>;
 
   constructor(private service: FestivalService, private route: ActivatedRoute) {
     this.selected_id = this.route.snapshot.paramMap.get('id') ?? "";
 
-    this.festival = this.service.getFestival(this.selected_id);
-
-    this.organiser = this.service.getFestivalOrganiser(this.selected_id);
-
-    this.participants = this.service.getFestivalParticipants(this.selected_id);
+    this.festival$ = this.service.getFestival(this.selected_id);
+    this.organiser$ = this.service.getFestivalOrganiser(this.selected_id);
+    this.participants$ = this.service.getFestivalParticipants(this.selected_id);
   }
 }
