@@ -36,12 +36,17 @@ export class FestivalService {
   getFestivals(): Observable<Festival[]> {
     return new Observable((subscriber: Subscriber<any[]>) => {
       onSnapshot(collection(this.firestore, 'festivals'), (snapshot) => {
-        let festivals: any[] = [];
-        snapshot.forEach((doc) => {
+        let festivals = snapshot.docs.map((doc: any) => {
           let festival = doc.data();
           festival['id'] = doc.id;
-          festivals.push(festival);
+          return festival;
         });
+        // let festivals: any[] = [];
+        // snapshot.forEach((doc) => {
+        //   let festival = doc.data();
+        //   festival['id'] = doc.id;
+        //   festivals.push(festival);
+        // });
         subscriber.next(festivals);
       });
     });
