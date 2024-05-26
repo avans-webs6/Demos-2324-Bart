@@ -70,32 +70,18 @@ export class FestivalService {
 
   getOrganiser(id: string): Observable<string> {
     return new Observable((subscriber: Subscriber<any>) => {
-      if (id == "") {
-        subscriber.next("");
-      } else {
-        onSnapshot(doc(this.firestore, "organisers", id), (doc) => {
-          let organiser = doc.data() ?? null;
-          if (organiser) {
-            subscriber.next(organiser['name']);
-          }
-        });
-      }
-    })
+      onSnapshot(doc(this.firestore, "organisers", id), (doc: any) => {
+        subscriber.next(doc.data() ? doc.data()["name"] : "Error");
+      });
+    });
   }
 
   getParticipant(id: string): Observable<string> {
     return new Observable((subscriber: Subscriber<any>) => {
-      if (id == "") {
-        subscriber.next("");
-      } else {
-        onSnapshot(doc(this.firestore, "participants", id), (doc) => {
-          let organiser = doc.data() ?? null;
-          if (organiser) {
-            subscriber.next(organiser['name']);
-          }
-        });
-      }
-    })
+      onSnapshot(doc(this.firestore, "participants", id), (doc: any) => {
+        subscriber.next(doc.data() ? doc.data()["name"] : "Error");
+      });
+    });
   }
 
   getFestivalOrganiser(id: string): Observable<any> {
