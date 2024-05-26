@@ -84,7 +84,7 @@ export class FestivalService {
     });
   }
 
-  getFestivalOrganiser(id: string): Observable<any> {
+  getFestivalOrganiser(id: string): Observable<string> {
     return this.getFestival(id).pipe(mergeMap((festival: any) => {
       return this.getOrganiser(festival.organiser);
     }));
