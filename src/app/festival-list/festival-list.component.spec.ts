@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FestivalListComponent } from './festival-list.component';
+import { FestivalSearchPipe } from '../festival-search.pipe';
+import { FormsModule } from '@angular/forms';
 
 describe('FestivalListComponent', () => {
   let component: FestivalListComponent;
@@ -8,7 +10,8 @@ describe('FestivalListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FestivalListComponent]
+      declarations: [FestivalListComponent, FestivalSearchPipe],
+      imports: [FormsModule]
     })
     .compileComponents();
     
