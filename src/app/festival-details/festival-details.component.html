@@ -1,9 +1,9 @@
 <form *ngIf="festival">
     <table>
-    <tr><td>Name:<td>{{ festival.name }}</td></tr>
-    <tr><td>Date:<td>{{ festival.date }}</td></tr>
-    <tr><td>Location:<td>{{ festival.location }}</td></tr>
-    <tr><td>Organiser:<td>{{ organiser }}</td></tr>
-    <tr><td>Participants:<td>{{ participants }}</td></tr>
+    <tr><td>Name:<td>{{ (festival | async)?.name }}</td></tr>
+    <tr><td>Date:<td>{{ (festival | async)?.date }}</td></tr>
+    <tr><td>Location:<td>{{ (festival | async)?.location }}</td></tr>
+    <tr><td>Organiser:<td>{{ organiser | async }}</td></tr>
+    <tr><td>Participants:<td>{{ participants | async }}</td></tr>
     </table>
 </form>
