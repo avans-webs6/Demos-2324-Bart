@@ -92,15 +92,15 @@ export class FestivalService {
 
   getFestivalParticipants(id: string): Observable<string[]> {
     return this.getFestival(id).pipe(mergeMap((festival: any) => {
-      let participants: Observable<string>[] = [];
+      let participants$: Observable<string>[] = [];
 
       if (festival.participants) {
         festival.participants.forEach((id: string) => {
-          participants.push(this.getParticipant(id));
+          participants$.push(this.getParticipant(id));
         });
       }
 
-      return combineLatest(participants);
+      return combineLatest(participants$);
     }));
   }
 
